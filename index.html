@@ -279,17 +279,17 @@
         /* ===== NAVIGATION ===== */
         .nav {
             position: fixed; top: 0; left: 0; right: 0;
-            z-index: 1000; padding: 1.5rem 3rem;
-            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; padding: 1.5rem clamp(1.25rem, 3vw, 3rem);
+            display: flex; justify-content: space-between; align-items: center; gap: 1.5rem;
             transition: background 0.4s ease, padding 0.4s ease;
         }
         .nav.scrolled {
             background: var(--color-nav-bg);
             backdrop-filter: blur(20px);
-            padding: 1rem 3rem;
+            padding: 1rem clamp(1.25rem, 3vw, 3rem);
             box-shadow: 0 1px 0 var(--color-input-border);
         }
-        .nav-logo-wrap { display: flex; align-items: center; gap: 0.75rem; }
+        .nav-logo-wrap { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
         .nav-logo {
             font-family: var(--font-display);
             font-size: 1.2rem; letter-spacing: 0.2em; font-weight: 700;
@@ -305,15 +305,17 @@
             padding: 0.25rem 0.5rem;
             white-space: nowrap;
         }
-        @media (max-width: 768px) {
+        @media (max-width: 1300px) {
             .concept-badge { display: none; }
         }
         .nav-links {
-            display: flex; gap: 2.5rem; align-items: center; list-style: none;
+            display: flex; gap: clamp(1.1rem, 2vw, 2.5rem); align-items: center; list-style: none;
+            flex-wrap: nowrap; flex-shrink: 0;
         }
+        .nav-links li { flex-shrink: 0; }
         .nav-links a {
-            font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase;
-            font-weight: 500; position: relative; padding-bottom: 4px;
+            font-size: clamp(0.74rem, 0.9vw, 0.85rem); letter-spacing: 0.1em; text-transform: uppercase;
+            font-weight: 500; position: relative; padding-bottom: 4px; white-space: nowrap;
         }
         .nav-links a::after {
             content: ''; position: absolute; bottom: 0; left: 0;
@@ -322,7 +324,7 @@
         }
         .nav-links a:hover::after, .nav-links a:focus-visible::after { width: 100%; }
 
-        .nav-controls { display: flex; gap: 0.8rem; align-items: center; }
+        .nav-controls { display: flex; gap: 0.8rem; align-items: center; flex-shrink: 0; }
 
         .lang-switch {
             font-family: var(--font-mono); font-size: 0.8rem;
@@ -920,9 +922,18 @@
 
             .modal-content { grid-template-columns: 1fr; }
             .modal-image { max-height: 50vh; }
-            .nav { padding: 1rem 2rem; }
-            .nav-links { gap: 1.5rem; }
-            .nav-links a { font-size: 0.75rem; }
+        }
+
+        /* Collapse the 6-item horizontal nav to the hamburger before it starts
+           to crowd the logo/controls (~1100px). Above this the full nav fits
+           via the fluid gap/padding/font clamps defined on the base rules. */
+        @media (max-width: 1100px) {
+            .nav { padding: 1.1rem 1.5rem; }
+            .nav.scrolled { padding: 0.9rem 1.5rem; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .mobile-nav { display: flex; }
+            .nav-controls { gap: 0.6rem; }
         }
 
         /* ===== RESPONSIVE — Mobile ===== */
