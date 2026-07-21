@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -336,7 +337,7 @@
             background: var(--color-text); color: var(--color-bg);
         }
         .theme-toggle {
-            width: 40px; height: 40px;
+            width: 44px; height: 44px;
             border: 1px solid var(--color-text); border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             background: transparent; color: var(--color-text);
@@ -951,7 +952,7 @@
             .hamburger { display: flex; }
             .mobile-nav { display: flex; }
             .lang-switch { font-size: 0.7rem; padding: 0.4rem 0.8rem; }
-            .theme-toggle { width: 36px; height: 36px; font-size: 1rem; }
+            .theme-toggle { width: 44px; height: 44px; font-size: 1rem; }
             .nav-controls { gap: 0.5rem; }
 
             /* Hero */
@@ -1133,7 +1134,7 @@
             .nav { padding: 0.7rem 1rem; }
             .nav-logo { font-size: 0.75rem; }
             .lang-switch { font-size: 0.65rem; padding: 0.35rem 0.7rem; }
-            .theme-toggle { width: 32px; height: 32px; font-size: 0.9rem; }
+            .theme-toggle { width: 44px; height: 44px; font-size: 0.9rem; }
             .hamburger span { width: 20px; }
 
             /* Mobile nav */
@@ -1287,7 +1288,7 @@
         </ul>
         <div class="nav-controls">
             <button class="lang-switch" id="langSwitch" aria-label="Switch language">EN</button>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☽</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" aria-pressed="false">☽</button>
             <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
@@ -1528,7 +1529,7 @@
         <div class="modal-overlay" id="exhibitModal" role="dialog" aria-modal="true" aria-label="Exhibit details">
             <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
             <div class="modal-content">
-                <div class="modal-image"><img id="modalImg" src="" alt="" loading="lazy"></div>
+                <div class="modal-image"><img id="modalImg" alt="" loading="lazy"></div>
                 <div class="modal-info">
                     <div class="modal-number" id="modalNumber"></div>
                     <h3 class="modal-title" id="modalTitle"></h3>
@@ -2084,12 +2085,14 @@
         const saved = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', saved);
         themeToggle.textContent = saved === 'dark' ? '☀' : '☽';
+        themeToggle.setAttribute('aria-pressed', String(saved === 'dark'));
 
         themeToggle.addEventListener('click', () => {
             const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', next);
             localStorage.setItem('theme', next);
             themeToggle.textContent = next === 'dark' ? '☀' : '☽';
+            themeToggle.setAttribute('aria-pressed', String(next === 'dark'));
         });
 
         // ===== COUNTDOWN =====
