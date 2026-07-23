@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" data-theme="light">
+<html lang="pl" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1310,7 +1310,6 @@
         </ul>
         <div class="nav-controls">
             <button class="lang-switch" id="langSwitch" aria-label="Switch language">EN</button>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" aria-pressed="false">☽</button>
             <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
@@ -2103,19 +2102,8 @@
         if (langSwitchMobile) langSwitchMobile.addEventListener('click', () => switchLanguage(currentLang === 'pl' ? 'en' : 'pl'));
 
         // ===== THEME TOGGLE =====
-        const themeToggle = document.getElementById('themeToggle');
-        const saved = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', saved);
-        themeToggle.textContent = saved === 'dark' ? '☀' : '☽';
-        themeToggle.setAttribute('aria-pressed', String(saved === 'dark'));
-
-        themeToggle.addEventListener('click', () => {
-            const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', next);
-            localStorage.setItem('theme', next);
-            themeToggle.textContent = next === 'dark' ? '☀' : '☽';
-            themeToggle.setAttribute('aria-pressed', String(next === 'dark'));
-        });
+        // Theme is fixed dark — the immersive art hero only works on a dark
+        // ground, so the toggle was removed and data-theme hardcoded on <html>.
 
         // ===== COUNTDOWN =====
         const openingDate = new Date('2026-09-15T10:00:00');
